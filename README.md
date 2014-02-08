@@ -14,29 +14,20 @@ $.notifyCookiesPolicy();
 
 <hr>
 
-Valores por defecto:
+<b>Valores por defecto</b>
 
-    <ul>
-        <li>defaultText: 'Utilizamos cookies propias y de terceros para mejorar nuestros servicios. Si continúa navegando, consideramos que acepta su uso. Para obtener más información, o bien conocer cómo cambiar la configuración vea la política de cookies.'</li>
-        <li>defaultScroll: 20</li>
-        <li>cssClass: "notify-cookies-policy-container"</li>
-        <li>cookieName: "notifyCookiesPolicy_accepted"</li>
-        <li>callbackToEnableGoogleAnalytics: null</li>
-        <li>cookiePolicy
-            <ul>
-                <li>show: true</li>
-                <li>defaultText: "Ver Política de cookies"</li>
-                <li>callbackToShowCookiePolicy: null</li>
-            </ul>
-        </li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-
+defaultText: 'Utilizamos cookies propias y de terceros para mejorar nuestros servicios. Si continúa navegando, consideramos que acepta su uso. Para obtener más información, o bien conocer cómo cambiar la configuración vea la política de cookies.'
+defaultScroll: 20
+cssClass: "notify-cookies-policy-container"
+cookieName: "notifyCookiesPolicy_accepted"
+callbackToEnableGoogleAnalytics: null
+cookiePolicy
+    show: true
+    defaultText: "Ver Política de cookies"
+    callbackToShowCookiePolicy: null
+    
 <hr>
 
-Callbacks
+<b>Callbacks</b>
 
 Existen 2 callbacks en el plugin, el primero es callbackToEnableGoogleAnalytics y será llamado una vez que el usuario ha aceptado las cookies, y el segundo es callbackToShowCookiePolicy que será la acción que realize en el enlace a la política de cookies.
