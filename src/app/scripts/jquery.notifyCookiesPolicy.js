@@ -4,7 +4,7 @@
     $.notifyCookiesPolicy = function (options) {
         $.notifyCookiesPolicy.methods.init.apply(this, arguments);
     };
-    
+
     $.notifyCookiesPolicy.methods = {
         init: function (options) {
 
@@ -14,19 +14,12 @@
             }
 
             var defaults = $.notifyCookiesPolicy.defaults;
+            var settings = $.extend(defaults, options);
 
             if ($.cookie(defaults.cookieName) == null) {
-                var $cookieAdvise = $("<div data-plugin-name = '" + pluginName + "'/>");
 
-                var settings = $.extend(defaults, options);
-                $cookieAdvise.data(pluginName, {
-                    target: $cookieAdvise,
-                    settings: settings
-                });
-
-                $cookieAdvise.addClass(settings.cssClass).html(settings.defaultText);
-                $('body').append($cookieAdvise);
-
+                var $cookieAdvise = createCookieAdvise(settings);
+                appendCookieAdviseToBody($cookieAdvise);
                 if (settings.cookiePolicy.show) {
                     appendCookiePolicyLink($cookieAdvise, settings);
                 }
@@ -35,6 +28,21 @@
             }
         }
     };
+
+    function appendCookieAdviseToBody($cookieAdvise) {
+        $('body').append($cookieAdvise);
+    }
+
+    function createCookieAdvise(settings) {
+        var $cookieAdvise = $("<div data-plugin-name = '" + pluginName + "'/>");
+        $cookieAdvise.addClass(settings.cssClass).html(settings.defaultText);
+        $cookieAdvise.data(pluginName, {
+            target: $cookieAdvise,
+            settings: settings
+        });
+
+        return $cookieAdvise;
+    }
 
     function appendCookiePolicyLink($cookieAdvise, settings) {
         var $cookiePolicyLink = $(" <a href='#'>" + settings.cookiePolicy.defaultText + "</a>");
@@ -98,7 +106,7 @@
         $(document).off('click');
         $(window).off('scroll');
     }
-    
+
     $.notifyCookiesPolicy.defaults = {
         defaultText: 'Utilizamos cookies propias y de terceros para mejorar nuestros servicios. Si continúa navegando, consideramos que acepta su uso. Para obtener más información, o bien conocer cómo cambiar la configuración vea la política de cookies.',
         defaultScroll: 20,
