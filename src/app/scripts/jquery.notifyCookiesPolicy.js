@@ -1,4 +1,4 @@
-; (function ($) {
+﻿; (function ($) {
     var pluginName = 'notifyCookiesPolicy';
 
     $.notifyCookiesPolicy = function (options) {
@@ -16,18 +16,25 @@
             var defaults = $.notifyCookiesPolicy.defaults;
             var settings = $.extend(defaults, options);
 
-            if ($.cookie(defaults.cookieName) == null) {
+            var $cookieAdvise = createCookieAdvise(settings);
 
-                var $cookieAdvise = createCookieAdvise(settings);
+            if ($.cookie(defaults.cookieName) == null) {
                 appendCookieAdviseToBody($cookieAdvise);
                 if (settings.cookiePolicy.show) {
                     appendCookiePolicyLink($cookieAdvise, settings);
                 }
-
                 handlerEvents();
+            } else {
+                callbackToEnableGoogleAnalytics(settings.callbackToEnableGoogleAnalytics, $cookieAdvise);
             }
         }
     };
+
+    function callbackToEnableGoogleAnalytics(callback, $cookieAdvise) {
+        if (typeof callback == 'function') {
+            callback($cookieAdvise);
+        }
+    }
 
     function appendCookieAdviseToBody($cookieAdvise) {
         $('body').append($cookieAdvise);
@@ -67,11 +74,8 @@
                 path: '/'
             });
 
-
             var callback = settings.callbackToEnableGoogleAnalytics;
-            if (typeof callback == 'function') {
-                callback($cookieAdvise);
-            }
+            callbackToEnableGoogleAnalytics(callback, $cookieAdvise);
 
             $cookieAdvise.remove();
 
@@ -108,14 +112,14 @@
     }
 
     $.notifyCookiesPolicy.defaults = {
-        defaultText: 'Utilizamos cookies propias y de terceros para mejorar nuestros servicios. Si continúa navegando, consideramos que acepta su uso. Para obtener más información, o bien conocer cómo cambiar la configuración vea la política de cookies.',
+        defaultText: 'Utilizamos cookies propias y de terceros para mejorar nuestros servicios. Si contin\xfaa navegando, consideramos que acepta su uso. Para obtener mi\xe1s informacii\xf3n, o bien conocer c\xf3mo cambiar la configuraci\xf3n vea la pol\xedtica de cookies.',
         defaultScroll: 20,
         cssClass: "notify-cookies-policy-container",
         cookieName: "notifyCookiesPolicy_accepted",
         callbackToEnableGoogleAnalytics: null,
         cookiePolicy: {
             show: true,
-            defaultText: "Ver Política de cookies",
+            defaultText: "Ver Pol\xedtica de cookies",
             callbackToShowCookiePolicy: null
         }
     };
