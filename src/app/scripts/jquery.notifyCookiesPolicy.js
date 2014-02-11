@@ -14,8 +14,7 @@
             }
 
             var defaults = $.notifyCookiesPolicy.defaults;
-            var settings = $.extend(defaults, options);
-
+            var settings = $.extend(true, defaults, options);
             var $cookieAdvise = createCookieAdvise(settings);
 
             if ($.cookie(defaults.cookieName) == null) {
@@ -52,7 +51,7 @@
     }
 
     function appendCookiePolicyLink($cookieAdvise, settings) {
-        var $cookiePolicyLink = $(" <a href='#'>" + settings.cookiePolicy.defaultText + "</a>");
+        var $cookiePolicyLink = $("<a href='#'/>").text(settings.cookiePolicy.defaultText);
         $cookiePolicyLink.on("click", function (e) {
             e.stopPropagation();
 
@@ -112,7 +111,7 @@
     }
 
     $.notifyCookiesPolicy.defaults = {
-        defaultText: 'Utilizamos cookies propias y de terceros para mejorar nuestros servicios. Si contin\xfaa navegando, consideramos que acepta su uso. Para obtener mi\xe1s informacii\xf3n, o bien conocer c\xf3mo cambiar la configuraci\xf3n vea la pol\xedtica de cookies.',
+        defaultText: 'Utilizamos cookies propias y de terceros para mejorar nuestros servicios. Si contin\xfaa navegando, consideramos que acepta su uso. Para obtener m\xe1s informaci\xf3n, o bien conocer c\xf3mo cambiar la configuraci\xf3n vea la pol\xedtica de cookies.',
         defaultScroll: 20,
         cssClass: "notify-cookies-policy-container",
         cookieName: "notifyCookiesPolicy_accepted",
